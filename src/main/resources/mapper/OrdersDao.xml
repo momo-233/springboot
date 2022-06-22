@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.OrdersDao">
+
+    <resultMap type="com.example.eneity.Orders" id="OrdersMap">
+        <result property="oid" column="oID" jdbcType="INTEGER"/>
+        <result property="uid" column="uID" jdbcType="INTEGER"/>
+        <result property="otime" column="oTime" jdbcType="TIMESTAMP"/>
+        <result property="ototal" column="oTotal" jdbcType="OTHER"/>
+        <association property="users" column="uid" javaType="com.example.eneity.Users">
+            <result property="uid" column="usersId" jdbcType="INTEGER"/>
+            <result property="uname" column="usersName" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrdersMap">
+        select
+            o.oID, o.uID, o.oTime, o.oTotal,u.uID as usersId,u.uName as usersName
+        from shop.orders o,
+             shop.users u
+        where oID = #{oid}
+            and u.uID = o.uID
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrdersMap">
+        select
+          oID, uID, oTime, oTotal
+        from shop.orders
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrdersMap">
+        select
+            *,
+            u.uid as usersId,u.uname as usersName
+        from shop.orders o,
+            shop.users u
+        <where>
+            u.uid = o.uid
+            <if test="oid != null">
+                and oID = #{oid}
+            </if>
+            <if test="uid != null">
+                and uID = #{uid}
+            </if>
+            <if test="otime != null">
+                and oTime = #{otime}
+            </if>
+            <if test="ototal != null">
+                and oTotal = #{ototal}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="oid" useGeneratedKeys="true">
+        insert into shop.orders(uID, oTime, oTotal)
+        values (#{uid}, #{otime}, #{ototal})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update shop.orders
+        <set>
+            <if test="uid != null">
+                uID = #{uid},
+            </if>
+            <if test="otime != null">
+                oTime = #{otime},
+            </if>
+            <if test="ototal != null">
+                oTotal = #{ototal},
+            </if>
+        </set>
+        where oID = #{oid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from shop.orders where oID = #{oid}
+    </delete>
+
+</mapper>

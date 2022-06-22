@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:include="head.html::head">
+</head>
+<body>
+<div id="top" th:include="head.html::top"></div>
+<div id="middle">
+    <div id="left" th:include="left.html::left"></div>
+    <div id="right">
+        <form action="/admin/toInsertAdminuser">
+            <input type="submit" value="添加管理员">
+        </form>
+        <div id="msg" th:text="${msg}"></div>
+        <table>
+            <tr>
+                <th>名称</th>
+                <th>密码</th>
+                <th>登录时间</th>
+            </tr>
+            <tr th:each="adminuser:${adminuserList.list}">
+                <td th:text="${adminuser.getAduname()}"></td>
+                <td th:text="${adminuser.getAdupwd()}"></td>
+                <td th:text="${#calendars.format(adminuser.getAdlogintime(),'yyyy-MM-dd')}"></td>
+                <td>
+                    <a th:href="@{/admin/delAdminuser/} + ${adminuser.getAduid()}">删除</a>
+                    <a th:href="@{/admin/adminuser/} + ${adminuser.getAduid()}">编辑</a>
+                </td>
+            </tr>
+        </table>
+        <div id="page" th:include="page.html::mypage(adminuser,${adminuserList})"></div>
+    </div>
+</div>
+<div id="bottom" th:include="bottom.html::bottom"></div>
+</body>
+</html>

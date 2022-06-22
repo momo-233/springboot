@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:include="head.html::head">
+</head>
+<body>
+<div id="top" th:include="head.html::top"></div>
+<div id="middle">
+    <div id="left" th:include="left.html::left"></div>
+    <div id="right">
+        <form action="/admin/editAdminuser" method="post">
+            <input type="hidden" name="aduid" th:value="${adminuser.getAduid()}">
+            <table>
+                <tr><td>名称</td><td><input type="text" th:value="${adminuser.getAduname()}" name="aduname"></td></tr>
+                <tr><td>密码</td><td><input type="text" th:value="${adminuser.getAdupwd()}" name="adupwd"></td></tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="返回" onclick="javascript:history.back()">
+                        <input type="reset" value="重置">
+                        <input type="submit" value="提交">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div id="bottom" th:include="bottom.html::bottom"></div>
+</body>
+</html>

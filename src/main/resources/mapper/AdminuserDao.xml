@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.AdminuserDao">
+
+    <resultMap type="com.example.eneity.Adminuser" id="AdminuserMap">
+        <result property="aduid" column="aduID" jdbcType="INTEGER"/>
+        <result property="aduname" column="aduName" jdbcType="VARCHAR"/>
+        <result property="adupwd" column="aduPwd" jdbcType="VARCHAR"/>
+        <result property="adlogintime" column="adLoginTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AdminuserMap">
+        select
+          aduID, aduName, aduPwd, adLoginTime
+        from shop.adminuser
+        where aduID = #{aduid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AdminuserMap">
+        select
+          aduID, aduName, aduPwd, adLoginTime
+        from shop.adminuser
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="AdminuserMap">
+        select
+          aduID, aduName, aduPwd, adLoginTime
+        from shop.adminuser
+        <where>
+            <if test="aduid != null">
+                and aduID = #{aduid}
+            </if>
+            <if test="aduname != null and aduname != ''">
+                and aduName = #{aduname}
+            </if>
+            <if test="adupwd != null and adupwd != ''">
+                and aduPwd = #{adupwd}
+            </if>
+            <if test="adlogintime != null">
+                and adLoginTime = #{adlogintime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="aduid" useGeneratedKeys="true">
+        insert into shop.adminuser(aduName, aduPwd, adLoginTime)
+        values (#{aduname}, #{adupwd}, #{adlogintime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update shop.adminuser
+        <set>
+            <if test="aduname != null and aduname != ''">
+                aduName = #{aduname},
+            </if>
+            <if test="adupwd != null and adupwd != ''">
+                aduPwd = #{adupwd},
+            </if>
+            <if test="adlogintime != null">
+                adLoginTime = #{adlogintime},
+            </if>
+        </set>
+        where aduID = #{aduid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from shop.adminuser where aduID = #{aduid}
+    </delete>
+
+</mapper>

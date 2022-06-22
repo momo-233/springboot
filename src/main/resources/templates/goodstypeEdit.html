@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:include="head.html::head">
+</head>
+<body>
+<div id="top" th:include="head.html::top"></div>
+<div id="middle">
+    <div id="left" th:include="left.html::left"></div>
+    <div id="right">
+        <form action="/admin/editGoodstype" method="post">
+            <input type="hidden" name="tid" th:value="${goodstype.getTid()}">
+            <table>
+                <tr><td>类别名称</td><td><input type="text" th:value="${goodstype.getTname}" name="tname"></td></tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="返回" onclick="javascript:history.back()">
+                        <input type="reset" value="重置">
+                        <input type="submit" value="提交">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div id="bottom" th:include="bottom.html::bottom"></div>
+</body>
+</html>

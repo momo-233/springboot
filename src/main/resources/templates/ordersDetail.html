@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:include="head.html::head">
+</head>
+<body>
+<div id="top" th:include="head.html::top"></div>
+<div id="middle">
+    <div id="left" th:include="left.html::left"></div>
+    <div id="right">
+        <div id="msg" th:text="${msg}"></div>
+        <table>
+            <tr>
+                <th>商品ID</th>
+                <th>订单数量</th>
+                <th>订单评价</th>
+                <th>订单时间</th>
+            </tr>
+            <tr th:each="orderdetail:${orderdetails}">
+                <td th:text="${orderdetail.goods.getGdname()}"></td>
+                <td th:text="${orderdetail.getOdnum()}"></td>
+                <td th:text="${orderdetail.getDevalution()}"></td>
+                <td th:text="${orderdetail.getOdtime()}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="bottom" th:include="bottom.html::bottom"></div>
+</body>
+</html>

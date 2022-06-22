@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:include="head.html::head">
+</head>
+<body>
+
+<div id="top" th:include="head.html::top"></div>
+<div id="middle">
+    <div id="left" th:include="left.html::left"></div>
+    <div id="right">
+        <hr>
+        <form action="/admin/insertUsers" method="post">
+            <table>
+                <tr><td>用户名</td><td><input type="text" name="uname"></td></tr>
+                <tr><td>密码</td><td><input type="text"  name="upwd"></td></tr>
+                <tr><td>性别</td><td><input type="text"  name="usex"></td></tr>
+                <tr><td>出生日期</td><td><input type="text"  name="ubirth"></td></tr>
+                <tr><td>城市</td><td><input type="text" name="ucity"></td></tr>
+                <tr><td>电话</td><td><input type="text" name="uphone"></td></tr>
+                <tr><td>电子邮箱</td><td><input type="text" name="uemail"></td></tr>
+                <tr><td>QQ</td><td><input type="text" name="uqq"></td></tr>
+                <tr><td>信用</td><td><input type="text" name="ucredit"></td></tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="reset" value="重置">
+                        <input type="submit" value="提交">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div id="bottom" th:include="bottom.html::bottom"></div>
+</body>
+</html>

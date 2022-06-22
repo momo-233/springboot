@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:include="head.html::head">
+</head>
+<body>
+<div id="top" th:include="head.html::top"></div>
+<div id="middle">
+    <div id="left" th:include="left.html::left"></div>
+    <div id="right">
+        <form action="/admin/toInsertGoodstype">
+            <input type="submit" value="添加商品类别">
+        </form>
+        <div id="msg" th:text="${msg}"></div>
+        <table>
+            <tr>
+                <th>类别名称</th>
+            </tr>
+            <tr th:each="goodstype:${goodstypeList.list}">
+                <td th:text="${goodstype.getTname()}"></td>
+                <td>
+                    <a th:href="@{/admin/delGoodstype/} + ${goodstype.getTid()}">删除</a>
+                    <a th:href="@{/admin/goodstype/} + ${goodstype.getTid()}">编辑</a>
+                </td>
+            </tr>
+        </table>
+        <div id="page" th:include="page.html::mypage(goodstype,${goodstypeList})"></div>
+    </div>
+</div>
+<div id="bottom" th:include="bottom.html::bottom"></div>
+</body>
+</html>

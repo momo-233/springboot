@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:include="head.html::head">
+</head>
+<body>
+<div id="top" th:include="head.html::top"></div>
+<div id="middle">
+    <div id="left" th:include="left.html::left"></div>
+    <div id="right">
+        <form action="/admin/editUsers" method="post">
+            <input type="hidden" name="uid" th:value="${users.getUid()}">
+            <table>
+                <tr><td>用户名</td><td><input type="text" th:value="${users.getUname}" name="uname"></td></tr>
+                <tr><td>密码</td><td><input type="text" th:value="${users.getUpwd()}" name="upwd"></td></tr>
+                <tr><td>性别</td><td><input type="text" th:value="${users.getUsex()}" name="usex"></td></tr>
+                <tr><td>出生日期</td><td><input type="data" th:value="${users.getUbirth()}" name="ubirth"></td></tr>
+                <tr><td>城市</td><td><input type="text" th:value="${users.getUcity()}" name="ucity"></td></tr>
+                <tr><td>电话</td><td><input type="text" th:value="${users.getUphone()}" name="uphone"></td></tr>
+                <tr><td>电子邮箱</td><td><input type="text" th:value="${users.getUemail()}" name="uemail"></td></tr>
+                <tr><td>QQ</td><td><input type="text" th:value="${users.getUqq()}" name="uqq"></td></tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="返回" onclick="javascript:history.back()">
+                        <input type="reset" value="重置">
+                        <input type="submit" value="提交">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div id="bottom" th:include="bottom.html::bottom"></div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:include="head.html::head">
+</head>
+<body>
+<div id="top" th:include="head.html::top"></div>
+<div id="middle">
+    <div id="left" th:include="left.html::left"></div>
+    <div id="right">
+        <div id="msg" th:text="${msg}"></div>
+        <table>
+            <tr>
+                <th>用户名</th>
+                <th>订单时间</th>
+                <th>订单金额</th>
+            </tr>
+            <tr th:each="orders:${ordersList.list}">
+                <td th:text="${orders.users.getUname()}"></td>
+                <td th:text="${#calendars.format(orders.getOtime(),'yyyy-MM-dd')}"></td>
+                <td th:text="${orders.getOtotal()}"></td>
+                <td>
+                    <a th:href="@{/admin/ordersDetail/} + ${orders.getOid()}">查看详情</a>
+                    <a th:href="@{/admin/delOrders/} + ${orders.getOid()}">删除</a>
+                    <a th:href="@{/admin/orders/} + ${orders.getOid()}">编辑</a>
+                </td>
+            </tr>
+        </table>
+        <div id="page" th:include="page.html::mypage(orders,${ordersList})"></div>
+    </div>
+</div>
+<div id="bottom" th:include="bottom.html::bottom"></div>
+</body>
+</html>
